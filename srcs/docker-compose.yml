@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+  mariadb:
+    build:
+      context: /home/inception/Desktop/inception/srcs/requirements/mariadb/.
+      dockerfile: Dockerfile
+    container_name: mariadb
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_DATABASE=wordpress
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception-network
+    expose:
+      - "3306"
+
+  wordpress:
+    depends_on:
+      - mariadb
+    build:
+      context: /home/inception/Desktop/inception/srcs/requirements/wordpress/.
+      dockerfile: Dockerfile
+    container_name: wordpress
+    restart: on-failure
+    env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=mariadb:3306
+      - WORDPRESS_DB_USER=$MYSQL_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
+      - WORDPRESS_DB_NAME=wordpress
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception-network
+    expose:
+      - "9000"
+
+  nginx:
+    depends_on:
+      - wordpress
+    build:
+      context: /home/inception/Desktop/inception/srcs/requirements/nginx/.
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: on-failure
+    env_file: .env
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception-network
+
+volumes:
+  wordpress:
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/inception/rarahhal/data/wordpress'
+
+  mariadb:
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/inception/rarahhal/data/mariadb'
+
+networks:
+  inception-network:
+    driver: bridge
+
