@@ -8,8 +8,11 @@ RUN	apt-get install -y php7.3\
 RUN	wget https://wordpress.org/latest.zip -P /var/www
 RUN	apt-get install unzip
 RUN	cd /var/www && unzip latest.zip && rm latest.zip
+#RUN	chown -R www-data:www-data /var/www/wordpress
 RUN	chown -R root:root /var/www/wordpress
 COPY	conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+RUN	rm -f /var/www/wordpress/wp-config-sample.php
+COPY	conf/wp-config.php /var/www/wordpress/
 #COPY	conf/php.ini /etc/php/7.3/fpm/php.ini  
 #COPY	wp-content/* /var/www/wordpress/
 CMD	["sleep", "infinity"]
