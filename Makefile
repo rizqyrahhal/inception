@@ -1,14 +1,14 @@
 SRC = ./srcs/docker-compose.yml
 
 all:
-	docker compose -f ${SRC} up -d
+	docker-compose -f ${SRC} up -d
 
 clean:
-	docker compose -f ${SRC} down --rmi all
+	docker-compose -f ${SRC} down --rmi all
 
 fclean: clean
-	rm -rf /home/rarahhal/data/wp/*
-	rm -rf /home/rarahhal/data/db/*
+	rm -rf /home/rarahhal/data/wordpress/*
+	rm -rf /home/rarahhal/data/mariadb/*
 	docker system prune -a -f
-	docker volume rm srcs_db_vol srcs_wp_vol
+	docker volume rm srcs_wordpress_db srcs_mariadb_db
 re: fclean all

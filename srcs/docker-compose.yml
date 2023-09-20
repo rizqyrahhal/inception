@@ -11,7 +11,7 @@ services:
       #environment:
       #- MYSQL_DATABASE=wordpress
     volumes:
-      - mariadb:/var/lib/mysql
+      - mariadb_db:/var/lib/mysql
     networks:
       - inception-network
     expose:
@@ -32,7 +32,7 @@ services:
       #- WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
       #- WORDPRESS_DB_NAME=wordpress
     volumes:
-      - wordpress:/var/www/
+      - wordpress_db:/var/www/
     networks:
       - inception-network
     expose:
@@ -50,21 +50,21 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress:/var/www/
+      - wordpress_db:/var/www/
     networks:
       - inception-network
 
 volumes:
-  wordpress:
+  wordpress_db:
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/home/rarahhal/data/wordpress'
-  mariadb:
-    #driver_opts:
-    # type: 'none'
-    # o: 'bind'
-    # device: '/home/inception/rarahhal/data/mariadb'
+  mariadb_db:
+    driver_opts:
+     type: 'none'
+     o: 'bind'
+     device: '/home/rarahhal/data/mariadb'
 
 networks:
   inception-network:
