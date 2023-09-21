@@ -32,7 +32,7 @@ services:
       #- WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
       #- WORDPRESS_DB_NAME=wordpress
     volumes:
-      - wordpress_db:/var/www/
+      - wordpress_dbg:/var/www/
     networks:
       - inception-network
     expose:
@@ -50,12 +50,12 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_db:/var/www/
+      - wordpress_dbg:/var/www/
     networks:
       - inception-network
 
 volumes:
-  wordpress_db:
+  wordpress_dbg:
     driver_opts:
       type: 'none'
       o: 'bind'

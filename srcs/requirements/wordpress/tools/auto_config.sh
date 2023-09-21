@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set your WordPress site details
-SITE_URL="https//rarahhal.42.fr"
+SITE_URL="rarahhal.42.fr"
 SITE_TITLE="wordpress site"
 ADMIN_USER="wordpressuser"
 ADMIN_PASSWORD="1337leet"
@@ -68,4 +68,5 @@ wp --allow-root core install --url="$SITE_URL" --title="$SITE_TITLE" --admin_use
 # Done
 #sleep 5
 echo "WordPress is installed and configured at $SITE_URL"
+mkdir -p /run/php
 /usr/sbin/php-fpm7.3 -F -R
