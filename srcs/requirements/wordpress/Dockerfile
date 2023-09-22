@@ -23,6 +23,7 @@ RUN	mv wp-cli.phar /usr/local/bin/wp
 #COPY	conf/php.ini /etc/php/7.3/fpm/php.ini
 #COPY	p-content/* /var/www/wordpress/
 COPY	tools/lunch_fpm.sh /.
+RUN	wget https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php -P /var/www/wordpress
 RUN	chmod +x ./lunch_fpm.sh
 RUN	chmod +x ./auto_config.sh
 RUN     exec /bin/bash /auto_config.sh
