@@ -11,6 +11,7 @@ RUN	apt-get install unzip
 RUN	cd /var/www && unzip latest.zip && rm latest.zip
 RUN	chown -R www-data:www-data /var/www/wordpress
 RUN	chown -R root:root /var/www/wordpress
+#RUN	chown -R inception:inception /var/www/wordpress
 COPY	conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN	rm -f /var/www/wordpress/wp-config-sample.php
 COPY	conf/wp-config.php /var/www/wordpress/
@@ -24,10 +25,11 @@ RUN	mv wp-cli.phar /usr/local/bin/wp
 COPY	tools/lunch_fpm.sh /.
 RUN	chmod +x ./lunch_fpm.sh
 RUN	chmod +x ./auto_config.sh
+RUN     exec /bin/bash /auto_config.sh
 #RUN	exec /bin/bash ./lunch_fpm.sh
 #CMD	["sh", "/auto_config.sh"]
 #RUN	sleep 10
-ENTRYPOINT ["./auto_config.sh"] 
+ENTRYPOINT ["./lunch_fpm.sh"] 
 #CMD	["sleep", "infinity"]
 #RUN	service php7.3-fpm start
 #RUN	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

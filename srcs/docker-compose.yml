@@ -5,6 +5,7 @@ services:
     build:
       context: ./requirements/mariadb/.
       dockerfile: Dockerfile
+    image: mariadb
     container_name: mariadb
     restart: unless-stopped
     env_file: .env
@@ -23,6 +24,7 @@ services:
     build:
       context: ./requirements/wordpress/.
       dockerfile: Dockerfile
+    image: wordpress
     container_name: wordpress
     restart: on-failure
     env_file: .env
@@ -32,7 +34,7 @@ services:
       #- WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
       #- WORDPRESS_DB_NAME=wordpress
     volumes:
-      - wordpress_dbg:/var/www/
+      - wordpress_db:/var/www/wordpress
     networks:
       - inception-network
     expose:
@@ -44,18 +46,19 @@ services:
     build:
       context: ./requirements/nginx/.
       dockerfile: Dockerfile
+    image: nginx
     container_name: nginx
     restart: on-failure
     env_file: .env
     ports:
       - "443:443"
     volumes:
-      - wordpress_dbg:/var/www/
+      - wordpress_db:/var/www/wordpress
     networks:
       - inception-network
 
 volumes:
-  wordpress_dbg:
+  wordpress_db:
     driver_opts:
       type: 'none'
       o: 'bind'

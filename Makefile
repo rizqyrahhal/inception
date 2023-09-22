@@ -4,7 +4,7 @@ all:
 	docker-compose -f ${SRC} up -d
 
 clean:
-	docker-compose -f ${SRC} down --rmi all
+	docker-compose -f ${SRC} down --volumes --rmi all
 
 fclean: clean
 	rm -rf /home/rarahhal/data/wordpress/*

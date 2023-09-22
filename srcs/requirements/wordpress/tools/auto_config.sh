@@ -68,5 +68,5 @@ wp --allow-root core install --url="$SITE_URL" --title="$SITE_TITLE" --admin_use
 # Done
 #sleep 5
 echo "WordPress is installed and configured at $SITE_URL"
-mkdir -p /run/php
-/usr/sbin/php-fpm7.3 -F -R
+#mkdir -p /run/php
+#/usr/sbin/php-fpm7.3 -F -R
