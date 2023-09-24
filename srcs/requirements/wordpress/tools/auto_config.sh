@@ -54,7 +54,7 @@ ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 #chmod -R 755 $INSTALL_DIR/wp-content/uploads
 
 cd /var/www/wordpress
-
+sleep 5
 # Set up the admin user
 wp --allow-root core install --url="$SITE_URL" --title="$SITE_TITLE" --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" --admin_email="$ADMIN_EMAIL"
 

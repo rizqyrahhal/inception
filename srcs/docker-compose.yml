@@ -57,23 +57,25 @@ services:
     networks:
       - inception-network
   
-  redis-cache:
-    build: ./requirements/bonus/redis-cache/.
-    image:  redis-cache
-    container_name: redis-cache
-    env_file: .env
-    networks:
-      - inception-network
-    ports:
-      - "6379"
+        #  redis-cache:
+        #build: ./requirements/bonus/redis-cache/.
+        #image:  redis-cache
+        #container_name: redis-cache
+        #env_file: .env
+        #networks:
+        #- inception-network
+        #ports:
+        #- "6379"
 
 volumes:
   wordpress_db:
+    driver: 'local'
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/home/rarahhal/data/wordpress'
   mariadb_db:
+    driver: 'local'
     driver_opts:
      type: 'none'
      o: 'bind'

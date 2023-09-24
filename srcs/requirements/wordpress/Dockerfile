@@ -1,10 +1,10 @@
 FROM	debian:buster
-RUN	apt-get update && apt-get upgrade
+RUN	apt-get update && apt-get upgrade -y
 RUN	apt-get -y install wget
 RUN	apt-get install -y php7.3\
 	php-fpm\
-	php-mysql\
-	mariadb-client
+	php-mysql
+	#mariadb-client
 #RUN	sleep 5
 RUN	wget https://wordpress.org/latest.zip -P /var/www
 RUN	apt-get install unzip
@@ -23,10 +23,10 @@ RUN	mv wp-cli.phar /usr/local/bin/wp
 #COPY	conf/php.ini /etc/php/7.3/fpm/php.ini
 #COPY	p-content/* /var/www/wordpress/
 COPY	tools/lunch_fpm.sh /.
-RUN	wget https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php -P /var/www/wordpress
+#RUN	wget https://assets.digitalocean.com/articles/wordpress_redis/object-cache.php -P /var/www/wordpress
 RUN	chmod +x ./lunch_fpm.sh
 RUN	chmod +x ./auto_config.sh
-RUN     exec /bin/bash /auto_config.sh
+#RUN     exec /bin/bash /auto_config.sh
 #RUN	exec /bin/bash ./lunch_fpm.sh
 #CMD	["sh", "/auto_config.sh"]
 #RUN	sleep 10

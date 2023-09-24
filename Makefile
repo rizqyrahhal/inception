@@ -2,6 +2,7 @@ SRC = ./srcs/docker-compose.yml
 
 all:
 	docker-compose -f ${SRC} up -d
+	docker exec wordpress ./auto_config.sh
 
 clean:
 	docker-compose -f ${SRC} down --volumes --rmi all
