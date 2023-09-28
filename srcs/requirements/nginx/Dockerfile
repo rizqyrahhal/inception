@@ -11,4 +11,4 @@ RUN	mkdir -p /var/www/wordpress
 RUN	chmod 755 /var/www/html
 RUN	chown -R www-data:www-data /var/www/html
 COPY	conf/nginx.conf /etc/nginx/nginx.conf
-CMD	[ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT	[ "nginx", "-g", "daemon off;" ]

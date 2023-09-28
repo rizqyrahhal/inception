@@ -9,8 +9,6 @@ services:
     container_name: mariadb
     restart: unless-stopped
     env_file: .env
-      #environment:
-      #- MYSQL_DATABASE=wordpress
     volumes:
       - mariadb_db:/var/lib/mysql
     networks:
@@ -28,11 +26,6 @@ services:
     container_name: wordpress
     restart: on-failure
     env_file: .env
-      #    environment:
-      #- WORDPRESS_DB_HOST=mariadb:3306
-      #- WORDPRESS_DB_USER=$MYSQL_USER
-      #- WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
-      #- WORDPRESS_DB_NAME=wordpress
     volumes:
       - wordpress_db:/var/www/wordpress
     networks:
@@ -57,7 +50,7 @@ services:
     networks:
       - inception-network
   
-        #  redis-cache:
+        #redis-cache:
         #build: ./requirements/bonus/redis-cache/.
         #image:  redis-cache
         #container_name: redis-cache

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Set your WordPress site details
-SITE_URL="rarahhal.42.fr"
-SITE_TITLE="wordpress site"
-ADMIN_USER="wordpressuser"
-ADMIN_PASSWORD="1337leet"
-ADMIN_EMAIL="rizqrrahhal8@gmail.com"
+#SITE_URL="rarahhal.42.fr"
+#SITE_TITLE="wordpress site"
+#ADMIN_USER="wordpressuser"
+#ADMIN_PASSWORD="1337leet"
+#ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 
 # MySQL database details
 #DB_NAME="todo-list"
@@ -14,7 +14,7 @@ ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 #DB_HOST="mariadb:3306"
 
 # WordPress installation directory
-#INSTALL_DIR="/var/www/"
+INSTALL_DIR="/var/www/wordpress/"
 
 # Download and extract WordPress
 #wget -q https://wordpress.org/latest.tar.gz -P /tmp
@@ -31,7 +31,7 @@ ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 #mv /tmp/wordpress/* $INSTALL_DIR
 
 # Create the wp-config.php file
-#cp $INSTALL_DIR/wp-config-sample.php $INSTALL_DIR/wp-config.php
+cp $INSTALL_DIR/wp-config-sample.php $INSTALL_DIR/wp-config.php
 
 # Set the database details in wp-config.php
 #sed -i "s/database_name_here/$DB_NAME/" $INSTALL_DIR/wp-config.php
@@ -39,8 +39,16 @@ ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 #sed -i "s/password_here/$DB_PASSWORD/" $INSTALL_DIR/wp-config.php
 #sed -i "s/localhost/$DB_HOST/" $INSTALL_DIR/wp-config.php
 
+
+# Set the database details in wp-config.php using WP-CLI
+wp config set DB_NAME "$DB_NAME" --path="$INSTALL_DIR"
+wp config set DB_USER "$DB_USER" --path="$INSTALL_DIR"
+wp config set DB_PASSWORD "$DB_PASSWORD" --path="$INSTALL_DIR"
+wp config set DB_HOST "$DB_HOST" --path="$INSTALL_DIR"
+
+
 # Generate unique keys and salts
-#curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> $INSTALL_DIR/wp-config.php
+curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> $INSTALL_DIR/wp-config.php
 
 # Configure site URL
 #echo "define('WP_SITEURL', '$SITE_URL');" >> $INSTALL_DIR/wp-config.php
@@ -54,7 +62,7 @@ ADMIN_EMAIL="rizqrrahhal8@gmail.com"
 #chmod -R 755 $INSTALL_DIR/wp-content/uploads
 
 cd /var/www/wordpress
-sleep 5
+#sleep 5
 # Set up the admin user
 wp --allow-root core install --url="$SITE_URL" --title="$SITE_TITLE" --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" --admin_email="$ADMIN_EMAIL"
 
@@ -68,5 +76,5 @@ wp --allow-root core install --url="$SITE_URL" --title="$SITE_TITLE" --admin_use
 # Done
 #sleep 5
 echo "WordPress is installed and configured at $SITE_URL"
-#mkdir -p /run/php
-#/usr/sbin/php-fpm7.3 -F -R
+mkdir -p /run/php
+/usr/sbin/php-fpm7.3 -F -R
