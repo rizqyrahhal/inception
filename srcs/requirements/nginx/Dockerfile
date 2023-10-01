@@ -1,4 +1,4 @@
-FROM	debian:buster
+FROM	debian:11.7
 RUN	apt update && apt upgrade -y
 RUN	apt install nginx -y
 RUN	apt install vim -y
